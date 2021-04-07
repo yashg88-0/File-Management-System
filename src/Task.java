@@ -30,16 +30,17 @@ public class Task {
 				s = s.replace(".txt", "");
 				al.add(Integer.parseInt(s));
 			}
-			 a = al.get(al.size()-1);
+			 a =list.length>0? al.get(al.size()-1):0;
+			
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
+		
 		File file = new File("C:\\Yash\\yash"+"_"+(++a)+".txt");
 		switch(n) {
 		
 		
-		
-			//create
+			//CASE: 1---CREATE
 			case "1":
 				try {
 						
@@ -58,8 +59,13 @@ public class Task {
 				break;
 				
 				
-				//read
+				//CASE 2:---READ
 			case "2":
+				File checkFileForRead = new File(filePath);
+				String[] arrRead = null;
+				if(checkFileForRead.isDirectory()) 
+					arrRead = checkFileForRead.list();
+				if(arrRead.length>0) {
 				System.out.println("Here are the List of files");
 				System.out.println("Choose the file to read");
 				for(String item:list) {
@@ -70,6 +76,10 @@ public class Task {
 				System.out.println("-----------------------------------------------------------------");
 				String l = sc.next();
 				File file1 = new File(filePath+"\\yash_"+l+".txt");
+				if(!file1.exists()) {
+					System.out.println("File doesn't exist");
+					return;
+				}
 				System.out.println("yash"+"_"+l+".txt");
 				 try {
 				      Scanner myReader = new Scanner(file1);
@@ -82,11 +92,19 @@ public class Task {
 				      System.out.println("An error occurred.");
 				      e.printStackTrace();
 				    }
+				}
+				else
+					System.out.println("File is empty!!");
 				 break;
 				 
 				 
-				 //update
+				 //CASE 3---UPDATE
 			case "3": 
+				File checkFileForUpdate = new File(filePath);
+				String[] arrUpdate = null;
+				if(checkFileForUpdate.isDirectory()) 
+					arrUpdate = checkFileForUpdate.list();
+				if(arrUpdate.length>0) {
 				System.out.println("Choose the file to update");
 				for(String item:list) {
 					System.out.println(item);
@@ -103,7 +121,6 @@ public class Task {
 				        String data = myReader.nextLine();
 				        s = s + data;
 				      }   
-//				String filecontent = sb.toString();
 				System.out.println("Content of the file:"+ s);
 				System.out.println("--------------------");
 				System.out.println("Enter the content: ");
@@ -115,14 +132,22 @@ public class Task {
 				System.out.println("Successfully Updated");
 				}
 				catch(Exception e) {
-					
+					System.out.println("File is not present");
 				}
+				}
+				else
+					System.out.println("FileList is empty!!");
 				break;
 				
 				
 				
-				//delete
+				//CASE 4---DELETE
 			case "4": 
+				File checkFileForDelete = new File(filePath);
+				String[] arrDelete = null;
+				if(checkFileForDelete.isDirectory()) 
+					arrDelete = checkFileForDelete.list();
+				if(arrDelete.length>0) {
 				System.out.println("Choose the file number to delete");
 				for(String item:list) {
 					System.out.println(item);
@@ -140,6 +165,12 @@ public class Task {
 				catch(Exception e) {
 					System.out.println("Please provide number only");
 				}
+				}
+				else
+					System.out.println("FileList is empty!!");
+				break;
+			default: 
+				System.out.println("Please provide given options only");
 	}
 }
 }
