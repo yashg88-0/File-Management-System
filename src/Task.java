@@ -1,16 +1,17 @@
+package output;
 import java.io.*;
-import java.lang.*;
 import java.util.*;
-
-import javax.xml.stream.events.Characters;
 public class Task {
 
 	public static void main(String[] args) {
+		@SuppressWarnings("resource")
 		Scanner sc = new Scanner(System.in);
 		ArrayList<Integer> al = new ArrayList<Integer>();
 		int a = 0;
 		String[] list = null;
 		System.out.println("Welcome to File Handling Task");
+		boolean flag = true;
+		while(flag) {
 		System.out.println("What operation do you want to perform?");
 		System.out.println("Please select your operation");
 		System.out.println("1. Create");
@@ -20,7 +21,6 @@ public class Task {
 		String n = sc.next();
 		sc.nextLine();
 		String filePath = "C:\\Yash\\";
-		String d = "";
 		try {
 			File file = new File(filePath);
 			list =file.list();
@@ -42,6 +42,7 @@ public class Task {
 		
 			//CASE: 1---CREATE
 			case "1":
+				System.out.println("\nWrite some content for your file please");
 				try {
 						
 					 if(file.createNewFile()){
@@ -50,6 +51,18 @@ public class Task {
 						    f.write(s);
 						    f.close();
 						    System.out.println("Successfully Created");
+						    System.out.println("Do you want to continue press y for YES or n for NO");
+						    String choice1 = sc.nextLine();
+						    if(choice1.equalsIgnoreCase("y"))
+						    	continue;
+						    else if(choice1.equalsIgnoreCase("n")) {
+						    	System.out.println("Thank you using service");
+						    	flag = false;
+						    }
+						    else {
+						    	System.out.println("Sorry you didn't type right key, so we are terminating your service");
+						    	flag = false;
+						    }
 						 }else
 						   System.out.println("Already exists");
 				}
@@ -61,6 +74,7 @@ public class Task {
 				
 				//CASE 2:---READ
 			case "2":
+				int c = 0;
 				File checkFileForRead = new File(filePath);
 				String[] arrRead = null;
 				if(checkFileForRead.isDirectory()) 
@@ -80,22 +94,38 @@ public class Task {
 					System.out.println("File doesn't exist");
 					return;
 				}
-				System.out.println("yash"+"_"+l+".txt");
+				System.out.println("The content of file "+"yash"+"_"+l+".txt is");
+				
 				 try {
 				      Scanner myReader = new Scanner(file1);
 				      while (myReader.hasNextLine()) {
 				        String data = myReader.nextLine();
 				        System.out.println(data);
+				        c++;
 				      }
-				      myReader.close();
+				      //myReader.close();
 				    } catch (FileNotFoundException e) {
 				      System.out.println("An error occurred.");
 				      e.printStackTrace();
 				    }
 				}
-				else
+					if(c==0)
 					System.out.println("File is empty!!");
+			    System.out.println("Do you want to continue press y for YES or n for NO");
+			    sc.nextLine();
+			    String choice2 = sc.nextLine();
+			    if(choice2.equalsIgnoreCase("y"))
+			    	continue;
+			    else if(choice2.equalsIgnoreCase("n")){
+			    	System.out.println("Thank you using service");
+			    	flag = false;
+			    }
+			    else {
+			    	System.out.println("Sorry you didn't type right key, so we are terminating your service");
+			    	flag = false;
+			    }
 				 break;
+				 
 				 
 				 
 				 //CASE 3---UPDATE
@@ -115,6 +145,7 @@ public class Task {
 				File file3 = new File(filePath+"\\yash_"+u+".txt");
 				try {
 				
+				@SuppressWarnings("resource")
 				Scanner myReader = new Scanner(file3);
 				String s = "";
 			      while (myReader.hasNextLine()) {
@@ -125,6 +156,7 @@ public class Task {
 				System.out.println("--------------------");
 				System.out.println("Enter the content: ");
 				String upd = sc.nextLine();
+				@SuppressWarnings("resource")
 				FileWriter fw = new FileWriter(file3);
 				upd = upd+s;
 				fw.append(upd);
@@ -137,6 +169,18 @@ public class Task {
 				}
 				else
 					System.out.println("FileList is empty!!");
+			    System.out.println("Do you want to continue press y for YES or n for NO");
+			    String choice3 = sc.nextLine();
+			    if(choice3.equalsIgnoreCase("y"))
+			    	continue;
+			    else if(choice3.equalsIgnoreCase("n")){
+			    	System.out.println("Thank you using service");
+			    	flag = false;
+			    }
+			    else {
+			    	System.out.println("Sorry you didn't type right key, so we are terminating your service");
+			    	flag = false;
+			    }
 				break;
 				
 				
@@ -167,10 +211,25 @@ public class Task {
 				}
 				}
 				else
-					System.out.println("FileList is empty!!");
+					System.out.println("There are no files");
+				
+			    System.out.println("Do you want to continue press y for YES or n for NO");
+			    sc.nextLine();
+			    String choice4 = sc.nextLine();
+			    if(choice4.equalsIgnoreCase("y"))
+			    	continue;
+			    else if(choice4.equalsIgnoreCase("n")){
+			    	System.out.println("Thank you using service");
+			    	flag = false;
+			    }
+			    else {
+			    	System.out.println("Sorry you didn't type right key, so we are terminating your service");
+			    	flag = false;
+			    }
 				break;
 			default: 
 				System.out.println("Please provide given options only");
 	}
+		}
 }
 }
